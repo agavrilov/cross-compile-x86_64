@@ -33,9 +33,12 @@ RUN cd /tmp && \
 FROM ubuntu
 COPY --from=builder /tmp/osxcross/target /usr/osxcross/
 
-# Install C++ compiler for Linux and Windows, musl-tools, OpenSSL and pkg-config
+# symlink c++ headers to the location expected by osxtools
+RUN ln -s /usr/osxcross/SDK/MacOSX10.11.sdk/usr/include/c++/4.2.1 /usr/osxcross/SDK/MacOSX10.11.sdk/usr/include/c++/v1
+
+# Install C++ compilers for Linux and Windows, musl-tools, OpenSSL and pkg-config
 RUN apt-get update && \
-    apt-get install -y --no-install-recommends g++ g++-mingw-w64-x86-64 musl-tools libssl-dev pkg-config && \
+    apt-get install -y --no-install-recommends clang g++ g++-mingw-w64-x86-64 musl-tools libssl-dev pkg-config && \
     apt-get clean
 
 ENV PATH=$PATH:/usr/osxcross/bin
