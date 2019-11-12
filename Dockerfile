@@ -39,7 +39,7 @@ RUN ln -s /usr/osxcross/SDK/MacOSX10.11.sdk/usr/include/c++/4.2.1 /usr/osxcross/
 
 # Install C++ compilers for Linux and Windows, musl-tools, OpenSSL and pkg-config
 RUN apt-get update && \
-    apt-get install -yes --no-install-recommends \
+    apt-get install --yes --no-install-recommends \
         ca-certificates \
         clang \
         curl \
