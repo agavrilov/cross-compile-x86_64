@@ -6,6 +6,7 @@ RUN apt-get update && \
     apt-get install --yes --no-install-recommends \
         automake \
         bison \
+        ca-certificates \
         clang \
         cmake \
         curl \
