@@ -15,4 +15,4 @@ Following packages are installed:
 * pkg-config
 * uuid-dev
 
-Additionally, [OS X Cross toolchain](https://github.com/tpoechtrager/osxcross) is compiled with Mac OSX SDK 10.11 and installed into **/usr/osxcross** directory
+Additionally, [OS X Cross toolchain](https://github.com/tpoechtrager/osxcross) is compiled with Mac OSX SDK 10.15 and installed into **/usr/osxcross** directory
