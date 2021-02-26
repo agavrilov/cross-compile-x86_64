@@ -26,22 +26,23 @@ RUN apt-get update && \
         xz-utils \
     && apt-get clean
 
+# Clone OSXCross and download SDK into 'tarballs' directory
 RUN cd /tmp && \
         git clone https://github.com/tpoechtrager/osxcross && \
         cd osxcross && \
-        wget https://github.com/phracker/MacOSX-SDKs/releases/download/10.15/MacOSX10.15.sdk.tar.xz --directory-prefix=tarballs && \
+        wget https://github.com/joseluisq/macosx-sdks/releases/download/10.15/MacOSX10.15.sdk.tar.xz --directory-prefix=tarballs
+
+# Build SDK
+RUN cd /tmp/osxcross && \
         UNATTENDED=yes OSX_VERSION_MIN=10.7 PORTABLE=yes ./build.sh
 
 # Copy macOS SDK built in the previous stage and install additional build tools
 FROM ubuntu
 COPY --from=builder /tmp/osxcross/target /usr/osxcross/
 
-# symlink c++ headers to the location expected by osxtools
-RUN ln -s /usr/osxcross/SDK/MacOSX10.15.sdk/usr/include/c++/4.2.1 /usr/osxcross/SDK/MacOSX10.15.sdk/usr/include/c++/v1
-
 # Install C++ compilers for Linux and Windows, musl-tools, OpenSSL and pkg-config
 RUN apt-get update && \
-    apt-get install --yes --no-install-recommends \
+    DEBIAN_FRONTEND=noninteractive apt-get install --yes --no-install-recommends \
         ca-certificates \
         clang \
         curl \
