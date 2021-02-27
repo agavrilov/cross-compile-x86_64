@@ -51,6 +51,7 @@ RUN apt-get update && \
         libssl-dev \
         libxml2-dev \
         llvm-dev \
+        make \
         musl-tools \
         pkg-config \
         uuid-dev \
