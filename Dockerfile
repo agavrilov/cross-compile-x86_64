@@ -27,10 +27,13 @@ RUN apt-get update && \
     && apt-get clean
 
 # Clone OSXCross and download SDK into 'tarballs' directory
-RUN cd /tmp && \
-        git clone https://github.com/tpoechtrager/osxcross && \
-        cd osxcross && \
-        wget https://github.com/joseluisq/macosx-sdks/releases/download/10.15/MacOSX10.15.sdk.tar.xz --directory-prefix=tarballs
+RUN SDK_VERSION='12.0' && \
+    SDK_CHECKSUM=ac07f28c09e6a3b09a1c01f1535ee71abe8017beaedd09181c8f08936a510ffd && \
+    cd /tmp && \
+    git clone https://github.com/tpoechtrager/osxcross && \
+    cd osxcross && \
+    wget https://github.com/joseluisq/macosx-sdks/releases/download/$SDK_VERSION/MacOSX$SDK_VERSION.sdk.tar.xz --directory-prefix=tarballs && \
+    echo "$SDK_CHECKSUM  tarballs/MacOSX$SDK_VERSION.sdk.tar.xz" | sha256sum -c -
 
 # Build SDK
 RUN cd /tmp/osxcross && \
