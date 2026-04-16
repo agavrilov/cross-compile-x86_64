@@ -20,15 +20,15 @@ RUN apt-get update && \
         make \
         patch \
         pkg-config \
-        python \
+        python3 \
         texinfo \
         wget \
         xz-utils \
     && apt-get clean
 
 # Clone OSXCross and download SDK into 'tarballs' directory
-RUN SDK_VERSION='12.0' && \
-    SDK_CHECKSUM=ac07f28c09e6a3b09a1c01f1535ee71abe8017beaedd09181c8f08936a510ffd && \
+RUN SDK_VERSION='26.1' && \
+    SDK_CHECKSUM=beee7212d265a6d2867d0236cc069314b38d5fb3486a6515734e76fa210c784c && \
     cd /tmp && \
     git clone https://github.com/tpoechtrager/osxcross && \
     cd osxcross && \
