@@ -28,7 +28,8 @@ RUN apt-get update && \
 
 # Copy and unpack MUSL ARM cross toolchain
 COPY toolchains/aarch64-linux-musl-cross.tar.xz /tmp/
-RUN tar -xvzf "/tmp/aarch64-linux-musl-cross.tar.xz" -C "/opt/cross"
+RUN mkdir -p /opt/cross \
+    && tar -xJf /tmp/aarch64-linux-musl-cross.tar.xz -C /opt/cross
 
 # Clone OSXCross and download SDK into 'tarballs' directory
 RUN SDK_VERSION='26.1' && \
