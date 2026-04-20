@@ -26,15 +26,9 @@ RUN apt-get update && \
         xz-utils \
     && apt-get clean
 
-# Download MUSL ARM cross toolchain
-RUN url="https://musl.cc/aarch64-linux-musl-cross.tgz" \
-    && tmpdir="$(mktemp -d)" \
-    && expected_sha512="8695ff86979cdf30fbbcd33061711f5b1ebc3c48a87822b9ca56cde6d3a22abd4dab30fdcd1789ac27c6febbaeb9e5bde59d79d66552fae53d54cc1377a19272" \
-    && dest_dir="/opt/cross" \
-    && wget -O "$tmpdir/archive.tgz" "$url" \
-    && echo "$expected_sha512 $tmpdir/archive.tgz" | sha512sum -c - \
-    && mkdir -p "$dest_dir" \
-    && tar -xvzf "$tmpdir/archive.tgz" -C "$dest_dir"
+# Copy and unpack MUSL ARM cross toolchain
+COPY toolchains/aarch64-linux-musl-cross.tar.xz /tmp/
+RUN tar -xvzf "/tmp/aarch64-linux-musl-cross.tar.xz" -C "/opt/cross"
 
 # Clone OSXCross and download SDK into 'tarballs' directory
 RUN SDK_VERSION='26.1' && \
